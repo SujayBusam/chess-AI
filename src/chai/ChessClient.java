@@ -21,7 +21,7 @@ import chesspresso.position.Position;
 
 public class ChessClient extends Application {
 
-	private static final int PIXELS_PER_SQUARE = 64;
+	private static final int PIXELS_PER_SQUARE = 100;
 	private static final String welcomeMessage = 
 			"Welcome to CS 76 chess.  Moves can be made using algebraic notation;"
 			+ " for example the command c2c3 would move the piece at c2 to c3.  \n";
@@ -33,6 +33,8 @@ public class ChessClient extends Application {
 	BoardView boardView;
 	ChessGame game;
 	// RandomMoveSource[] playerMoveSources;
+	
+	private boolean isOver = false;
 
 	MoveMaker[] moveMaker;
 
@@ -132,6 +134,19 @@ public class ChessClient extends Application {
 			// playerMoveSources[0].getMove(game.position.toString());
 			// System.out.println(move);
 			// boardView.doMove(move);
+			
+			
+			// Check for the end of a game (checkmate or stalemate)
+			String[] players = {"Black", "White"};
+			if (game.isMate() && !isOver) {
+				log("Checkmate, " + players[game.position.getToPlay()] + " wins!");
+				isOver = true;
+			}
+			
+			if (game.isStaleMate() && !isOver) {
+				log("Stalemate! It's a draw.");
+				isOver = true;
+			}
 		}
 
 	}
