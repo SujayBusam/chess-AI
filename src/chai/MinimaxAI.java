@@ -46,20 +46,34 @@ public class MinimaxAI implements ChessAI {
 	}
 
 	public short getMove(Position position) {
-		//		short [] moves = position.getAllMoves();
-		//		short move = moves[new Random().nextInt(moves.length)];
-		//	
-		//		return move;
 
 		AI_PLAYER = position.getToPlay();
-		short moveReturn = doMinimax(position);
-		// Print stats
-		System.out.println("# states visited: " + statesVisited);
-		System.out.println("Depth reached: " + depthReached);
-		return moveReturn;
+
+		MoveNode bestMove = null;
+		int iterationDepth = MAX_DEPTH;
+		// Iterative searching of best move
+		for (int i = 1; i <= iterationDepth; i++) {
+			
+			MAX_DEPTH = i;
+			bestMove = doMinimax(position);
+			
+			// Print stats
+			System.out.println("# states visited: " + statesVisited);
+			System.out.println("Depth reached: " + depthReached + "\n");
+			
+			// Reset Stats
+			statesVisited = 0;
+			depthReached = 0;
+			
+			if (bestMove.getValue() == MAX_UTILITY) {
+				return bestMove.getMove();
+			}
+		}
+		
+		return bestMove.getMove();
 	}
 
-	private short doMinimax(Position position) {
+	private MoveNode doMinimax(Position position) {
 		///////// Initialize best move ///////////
 		MoveNode bestMove = null;
 		short[] moves = position.getAllMoves();
@@ -81,7 +95,7 @@ public class MinimaxAI implements ChessAI {
 				position.undoMove();
 
 				// Update best move as needed
-				if (currentMove.getValue() > bestMove.getValue()) {
+				if (currentMove.getValue() >= bestMove.getValue()) {
 					bestMove = currentMove;
 				}
 			}
@@ -91,7 +105,7 @@ public class MinimaxAI implements ChessAI {
 			}
 		}
 
-		return bestMove.getMove();
+		return bestMove;
 	}
 
 
