@@ -8,13 +8,14 @@ import chesspresso.position.Position;
 public class ChessGame {
 
 	public Position position;
-	public static String pString = ("rnbqr1k1/ppp3p1/4pR1p/4p2Q/3P4/B1PB4/P1P3PP/R5K1 w - - 0 1");
+	public static String m5 = ("1k6/8/7R/7R/8/8/8/7K w - - 0 1");
+	public static String m1 = ("1k6/7R/6R1/8/8/8/8/7K w - - 0 1");
 
 	public int rows = 8;
 	public int columns = 8;
 
 	public ChessGame() {
-		position = new Position(pString);
+		position = new Position(m5);
 
 	}
 
@@ -76,7 +77,7 @@ public class ChessGame {
 
 		// Create a starting position using "Forsyth–Edwards Notation". (See
 		// Wikipedia.)
-		Position position = new Position(pString);
+		Position position = new Position(m5);
 
 		System.out.println(position);
 

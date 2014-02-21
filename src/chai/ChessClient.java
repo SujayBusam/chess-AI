@@ -21,7 +21,7 @@ import chesspresso.position.Position;
 
 public class ChessClient extends Application {
 
-	private static final int PIXELS_PER_SQUARE = 100;
+	private static final int PIXELS_PER_SQUARE = 60;
 	private static final String welcomeMessage = 
 			"Welcome to CS 76 chess.  Moves can be made using algebraic notation;"
 			+ " for example the command c2c3 would move the piece at c2 to c3.  \n";
@@ -75,8 +75,8 @@ public class ChessClient extends Application {
 		// Movemakers handle getting input from an AI, from the keyboard, or
 		// from a server, depending on which type is used.
 		moveMaker = new MoveMaker[2];
-		moveMaker[Chess.BLACK] = new AIMoveMaker(new RandomAI());
-		moveMaker[Chess.WHITE] = new TextFieldMoveMaker();
+		moveMaker[Chess.WHITE] = new AIMoveMaker(new MinimaxAI(6));
+		moveMaker[Chess.BLACK] = new TextFieldMoveMaker();
 
 		VBox vb = new VBox();
 		vb.getChildren().addAll(boardView, logArea, commandField);
@@ -136,15 +136,20 @@ public class ChessClient extends Application {
 			// boardView.doMove(move);
 			
 			
-			// Check for the end of a game (checkmate or stalemate)
+			// Check for the end of a game (checkmate, stalemate, draw)
 			String[] players = {"Black", "White"};
-			if (game.isMate() && !isOver) {
+			if (game.position.isMate() && !isOver) {
 				log("Checkmate, " + players[game.position.getToPlay()] + " wins!");
 				isOver = true;
 			}
 			
-			if (game.isStaleMate() && !isOver) {
+			if (game.position.isStaleMate() && !isOver) {
 				log("Stalemate! It's a draw.");
+				isOver = true;
+			}
+			
+			if (game.position.isTerminal() && !isOver) {
+				log("It's a draw!");
 				isOver = true;
 			}
 		}
