@@ -75,7 +75,7 @@ public class ChessClient extends Application {
 		// Movemakers handle getting input from an AI, from the keyboard, or
 		// from a server, depending on which type is used.
 		moveMaker = new MoveMaker[2];
-		moveMaker[Chess.WHITE] = new AIMoveMaker(new MinimaxAI(7));
+		moveMaker[Chess.WHITE] = new AIMoveMaker(new AlphaBetaAI(8));
 		moveMaker[Chess.BLACK] = new TextFieldMoveMaker();
 
 		VBox vb = new VBox();
@@ -124,6 +124,24 @@ public class ChessClient extends Application {
 					&& boardView.ready()) {
 				short move = mover.getMove();
 				boardView.doMove(move);
+				
+				// Check for the end of a game (checkmate, stalemate, draw)
+				String[] players = {"Black", "White"};
+				if (game.position.isMate() && !isOver) {
+					log("Checkmate, " + players[game.position.getToPlay()] + " wins!");
+					isOver = true;
+				}
+				
+				if (game.position.isStaleMate() && !isOver) {
+					log("Stalemate! It's a draw.");
+					isOver = true;
+				}
+				
+				if (game.position.isTerminal() && !isOver) {
+					log("It's a draw!");
+					isOver = true;
+				}
+				
 				mover.reset();
 			}
 
@@ -136,22 +154,7 @@ public class ChessClient extends Application {
 			// boardView.doMove(move);
 			
 			
-			// Check for the end of a game (checkmate, stalemate, draw)
-			String[] players = {"Black", "White"};
-			if (game.position.isMate() && !isOver) {
-				log("Checkmate, " + players[game.position.getToPlay()] + " wins!");
-				isOver = true;
-			}
-			
-			if (game.position.isStaleMate() && !isOver) {
-				log("Stalemate! It's a draw.");
-				isOver = true;
-			}
-			
-			if (game.position.isTerminal() && !isOver) {
-				log("It's a draw!");
-				isOver = true;
-			}
+
 		}
 
 	}

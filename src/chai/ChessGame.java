@@ -13,12 +13,13 @@ public class ChessGame {
 	public static String start = ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 	public static String m6 = ("rnbqr1k1/ppp3p1/4pR1p/4p2Q/3P4/B1PB4/P1P3PP/R5K1 w - - 0 1");
 	public static String m6_2 = ("r7/3bb1kp/q4p1N/1pnPp1np/2p4Q/2P5/1PB3P1/2B2RK1 w - - 0 1");
+	public static String m10 = ("2K5/1Q6/8/R7/8/8/4k3/8 w - - 0 1");
 
 	public int rows = 8;
 	public int columns = 8;
 
 	public ChessGame() {
-		position = new Position(m6_2);
+		position = new Position(m10);
 
 	}
 
@@ -80,7 +81,7 @@ public class ChessGame {
 
 		// Create a starting position using "Forsyth–Edwards Notation". (See
 		// Wikipedia.)
-		Position position = new Position(m6_2);
+		Position position = new Position(m10);
 
 		System.out.println(position);
 
