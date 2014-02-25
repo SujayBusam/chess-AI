@@ -66,10 +66,12 @@ public class MinimaxAI implements ChessAI {
 			depthReached = 0;
 			
 			if (bestMove.getValue() == MAX_UTILITY) {
+				System.out.println("Move value: " + bestMove.getValue());
 				return bestMove.getMove();
 			}
 		}
 		
+		System.out.println("Move value: " + bestMove.getValue());
 		return bestMove.getMove();
 	}
 
@@ -104,7 +106,7 @@ public class MinimaxAI implements ChessAI {
 				e.printStackTrace();
 			}
 		}
-
+		
 		return bestMove;
 	}
 
@@ -222,7 +224,6 @@ public class MinimaxAI implements ChessAI {
 		else {
 			return (-1 * position.getMaterial());
 		}
-
 	}
 
 

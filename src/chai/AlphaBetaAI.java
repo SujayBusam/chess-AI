@@ -67,10 +67,12 @@ public class AlphaBetaAI implements ChessAI {
 			depthReached = 0;
 
 			if (bestMove.getValue() == MAX_UTILITY) {
+				System.out.println("Move value: " + bestMove.getValue());
 				return bestMove.getMove();
 			}
 		}
 
+		System.out.println("Move value: " + bestMove.getValue());
 		return bestMove.getMove();
 	}
 

@@ -19,7 +19,7 @@ public class ChessGame {
 	public int columns = 8;
 
 	public ChessGame() {
-		position = new Position(m10);
+		position = new Position(m6_2);
 
 	}
 
@@ -81,7 +81,7 @@ public class ChessGame {
 
 		// Create a starting position using "Forsyth–Edwards Notation". (See
 		// Wikipedia.)
-		Position position = new Position(m10);
+		Position position = new Position(m6_2);
 
 		System.out.println(position);
 
